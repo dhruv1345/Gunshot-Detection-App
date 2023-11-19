@@ -57,73 +57,17 @@ y = np.array(labels)
 rf = RandomForestClassifier(n_estimators=100, random_state=42)  # Adjust parameters as needed
 rf.fit(X, y)
 
-# Load and process the recorded audio
-
-# import pyaudio
-# import wave
-
-# # Configure audio settings
-# FORMAT = pyaudio.paInt16
-# CHANNELS = 1  # Mono audio
-# RATE = 44100  # Sample rate (samples per second)
-# RECORD_SECONDS = 10  # Duration of recording in seconds
-# OUTPUT_FILENAME = "recorded_audio.wav"  # Output file name
-
-# # Initialize PyAudio
-# audio = pyaudio.PyAudio()
-
-# # Create an audio stream
-# stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=1024)
-
-# print("Recording...")
-
-# frames = []
-
-# # Record audio for the specified duration
-# for _ in range(0, int(RATE / 1024 * RECORD_SECONDS)):
-#     data = stream.read(1024)
-#     frames.append(data)
-
-# print("Recording complete.")
-
-# # Stop and close the audio stream
-# stream.stop_stream()
-# stream.close()
-
-# # Terminate PyAudio
-# audio.terminate()
-
-# # Save the recorded audio as a .wav file
-# with wave.open(OUTPUT_FILENAME, 'wb') as wf:
-#     wf.setnchannels(CHANNELS)
-#     wf.setsampwidth(audio.get_sample_size(FORMAT))
-#     wf.setframerate(RATE)
-#     wf.writeframes(b''.join(frames))
-
-# print(f"Audio saved as {OUTPUT_FILENAME}")
-
-
-
-# recorded_audio_path = "/content/drive/MyDrive/sounds/test/gunshots/gunshot 8 (71).wav"  
-# recorded_audio_path = "C:\\Users\\gupta\\Downloads\\gunshot.wav"
-
 recorded_audio_path = "C:\\Users\\gupta\\OneDrive\\Desktop\\ML_project_final\\song.wav"
 
 # recorded_audio_path = "/content/drive/MyDrive/sounds/test/nongunshot/nongunshot 105029-7-2-9.wav"
 
 recorded_mfccs = extract_mfcc(recorded_audio_path)
 
-
-
 # Flatten the recorded audio features
 recorded_mfcc_flattened = recorded_mfccs.flatten()
 
-
-
 # Predict the label for the recorded audio
 prediction = rf.predict([recorded_mfcc_flattened])
-
-
 
 gunshot_detected = False
 
@@ -133,4 +77,67 @@ if prediction[0] == 1:
 else:
     print("The recorded audio is not identified as a gunshot.")
     
+from twilio.rest import Client
+import geocoder
+# from ml_code import gunshot_detected
+
+# Twilio credentials (replace with your own)
+account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
+auth_token = '690d10d0b4846c4a510ec7a4f08cb413'
+twilio_phone_number = '+14436029264'
+your_phone_number = '+919958324711'
+
+# Google Maps API key (replace with your own)
+google_maps_api_key = 'AIzaSyAatKDFob7NtGfNUY1YEyLndOVXsSLqnuY'
+
+def send_sms(message, phone_number):
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+        body=message,
+        from_=twilio_phone_number,
+        to=phone_number
+    )
+
+    print(f"SMS sent with SID: {message.sid}")
+
+def get_current_location():
+    # Use an IP geolocation service to get an approximate location
+    location = geocoder.ip('me')
+
+    # Extract latitude and longitude
+    latitude, longitude = location.latlng
+
+    return latitude, longitude
+
+def get_location_address(latitude, longitude):
+    # Use Google Maps API to get the location address
+    g = geocoder.google([latitude, longitude], method='reverse', key=google_maps_api_key)
+    return g.address
+
+# Replace these values with your actual Twilio and Google Maps API credentials
+account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
+auth_token = '690d10d0b4846c4a510ec7a4f08cb413'
+twilio_phone_number = '+14436029264'
+your_phone_number = '+919958324711'
+google_maps_api_key = 'AIzaSyAatKDFob7NtGfNUY1YEyLndOVXsSLqnuY'
+
+# Define a threshold for gunshot detection (replace with your actual detection logic)
+# gunshot_detected = True
+
+if gunshot_detected:
+    print("Gunshot detected and SMS generated.")
+    latitude, longitude = get_current_location()
+    location_address = get_location_address(latitude, longitude)
+    sms_message = f"Gunshot detected at Jaypee Institute of Information Technology (Latitude: {latitude}, Longitude: {longitude})!"
+    send_sms(sms_message, your_phone_number)
+else:
+    print("No gunshot detected and SMS generated.")
+    latitude, longitude = get_current_location()
+    location_address = get_location_address(latitude, longitude)
+    sms_message = f"No Gunshot detected at Jaypee Institute of Information Technology (Latitude: {latitude}, Longitude: {longitude})!"
+    send_sms(sms_message, your_phone_number)
     
+    
+
+
