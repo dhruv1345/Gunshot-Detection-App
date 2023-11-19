@@ -123,8 +123,13 @@ recorded_mfcc_flattened = recorded_mfccs.flatten()
 # Predict the label for the recorded audio
 prediction = rf.predict([recorded_mfcc_flattened])
 
+
+
+gunshot_detected = False
+
 if prediction[0] == 1:
     print("The recorded audio is identified as a gunshot.")
+    gunshot_detected = True
 else:
     print("The recorded audio is not identified as a gunshot.")
     
