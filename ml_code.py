@@ -83,7 +83,6 @@ else:
     
 from twilio.rest import Client
 import geocoder
-# from ml_code import gunshot_detected
 
 # Twilio credentials (replace with your own)
 account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
