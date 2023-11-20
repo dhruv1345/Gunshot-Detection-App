@@ -57,7 +57,11 @@ y = np.array(labels)
 rf = RandomForestClassifier(n_estimators=100, random_state=42)  # Adjust parameters as needed
 rf.fit(X, y)
 
+# audio_path = input("Enter path of saved audio")
+
 recorded_audio_path = "C:\\Users\\gupta\\OneDrive\\Desktop\\ML_project_final\\song.wav"
+
+# recorded_audio_path = "{audio_path}"
 
 # recorded_audio_path = "/content/drive/MyDrive/sounds/test/nongunshot/nongunshot 105029-7-2-9.wav"
 
