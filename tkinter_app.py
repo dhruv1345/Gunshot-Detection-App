@@ -55,7 +55,8 @@ def upload_and_predict():
     if file_path:
         try:
             prediction = predict(rf_model, file_path)
-            result_message = "Gunshot detected!" if prediction else "No gunshot detected."
+            result_message = "Gunshot detected!" if prediction else "No gunshot detected!"
+            print("No Gunshot Detected!")
 
             # Display a dialog box with the result
             messagebox.showinfo("Prediction Result", result_message)
