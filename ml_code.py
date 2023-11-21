@@ -47,7 +47,7 @@ for folder in ["train", "test"]:
 flattened_features = [mfcc.flatten() for mfcc in features]
 
 # print(labels)
-print(len(labels))
+# print("Labels: "+len(labels))
 
 # Convert to numpy array
 X = np.array(flattened_features)
@@ -60,10 +60,6 @@ rf.fit(X, y)
 # audio_path = input("Enter path of saved audio")
 
 recorded_audio_path = "C:\\Users\\gupta\\OneDrive\\Desktop\\ML_project_final\\song.wav"
-
-# recorded_audio_path = "{audio_path}"
-
-# recorded_audio_path = "/content/drive/MyDrive/sounds/test/nongunshot/nongunshot 105029-7-2-9.wav"
 
 recorded_mfccs = extract_mfcc(recorded_audio_path)
 
@@ -84,13 +80,13 @@ else:
 from twilio.rest import Client
 import geocoder
 
-# Twilio credentials (replace with your own)
+# Twilio credentials 
 account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
 auth_token = '690d10d0b4846c4a510ec7a4f08cb413'
 twilio_phone_number = '+14436029264'
 your_phone_number = '+919958324711'
 
-# Google Maps API key (replace with your own)
+# Google Maps API key 
 google_maps_api_key = 'AIzaSyAatKDFob7NtGfNUY1YEyLndOVXsSLqnuY'
 
 def send_sms(message, phone_number):
@@ -140,7 +136,3 @@ else:
     location_address = get_location_address(latitude, longitude)
     sms_message = f"No Gunshot detected at Jaypee Institute of Information Technology (Latitude: {latitude}, Longitude: {longitude})!"
     send_sms(sms_message, your_phone_number)
-    
-    
-
-
