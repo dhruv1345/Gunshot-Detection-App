@@ -462,6 +462,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from code_prediction import train_model, predict, send_sms, get_current_location, get_location_address
 from PIL import Image, ImageTk
+import webbrowser
+
 
 # Global variable to store the trained model
 rf_model = None
@@ -469,7 +471,7 @@ rf_model = None
 
 account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
 auth_token = '690d10d0b4846c4a510ec7a4f08cb413'
-twilio_phone_number = '+14436029264'
+twilio_phone_number = '+16503380253'
 your_phone_number = '+919958324711'
 google_maps_api_key = 'AIzaSyAatKDFob7NtGfNUY1YEyLndOVXsSLqnuY'
 
@@ -547,6 +549,12 @@ def upload_and_predict():
         except Exception as e:
             messagebox.showerror("Error", f"Error processing audio: {str(e)}")
 
+
+def open_colab_notebook():
+    # Replace the URL with the link to your Google Colab notebook
+    notebook_url = "https://colab.research.google.com/drive/1yEcGkBbHc6P_e_3MBe8BrXw37V2xa_eY?usp=sharing"
+    webbrowser.open_new(notebook_url)
+
 # Create the main window
 window = tk.Tk()
 window.title("ML Algorithm for Gunshot Detection")
@@ -563,20 +571,19 @@ additional_text.pack(pady=(8), fill=tk.X)
 image_path = "C:\\Users\\gupta\\OneDrive\\Desktop\\ML_project_final\\jiit_image.png"  # Replace with the path to your PNG image
 img = tk.PhotoImage(file=image_path)
 img_label = tk.Label(window, image=img)
-img_label.pack(pady=8)
+img_label.pack(pady=5)
 
-# Additional text labels, image, and buttons go here...
+colab_button = tk.Button(window, text="Audio Features Plots", bg="green", fg="white", padx=10, pady=2,command=open_colab_notebook)
+colab_button.pack(pady=5)
 
 # Button to upload and predict
 predict_button = tk.Button(window, text="Upload and Predict", command=upload_and_predict, bg="green", fg="white", padx=10, pady=5)
 predict_button.pack(pady=5)
 
-additional_text = tk.Label(window, text="This project will help in reducing street crimes \n & to reduce time required to \n catch culprits", font=("Times", 13))
+additional_text = tk.Label(window, text="This project will help in reducing street crimes \n & to reduce time required \n catching culprits", font=("Times", 12))
 additional_text.pack(pady=(20), fill=tk.X)
 
 window.mainloop()
-
-
 
 # #code new
 

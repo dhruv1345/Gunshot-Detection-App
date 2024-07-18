@@ -8,7 +8,7 @@ import geocoder
 # Twilio credentials
 account_sid = 'AC95bab185bcf9f84cdc53f08769f67f15'
 auth_token = '690d10d0b4846c4a510ec7a4f08cb413'
-twilio_phone_number = '+14436029264'
+twilio_phone_number = '+16503380253'
 your_phone_number = '+919958324711'
 google_maps_api_key = 'AIzaSyAatKDFob7NtGfNUY1YEyLndOVXsSLqnuY'
 

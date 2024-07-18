@@ -1,0 +1,22 @@
+# requirements.txt
+
+# GUI Library
+tkinter==8.6.10
+
+# Additional GUI Components
+Pillow==8.4.0  # Required for working with images (PIL library)
+
+# Machine Learning
+scikit-learn==0.24.2  # Version might vary based on your code_prediction module
+numpy==1.19.5
+scipy==1.7.3
+scikit-learn==0.24.2
+# Add any other machine learning dependencies your code_prediction module requires
+
+# SMS functionality
+twilio==6.63.0  # Version might vary based on your send_sms module
+# Add any other SMS-related dependencies your send_sms module requires
+
+# Geolocation
+geopy==2.2.0  # Version might vary based on your get_current_location module
+# Add any other geolocation dependencies your modules might require
